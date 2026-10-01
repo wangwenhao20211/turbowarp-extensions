@@ -366,10 +366,11 @@ class HomepageFile extends BuildFile {
     /** @type {Mode} */
     this.mode = mode;
 
+    // ★ 已改为你的域名
     this.host =
       mode === "development"
         ? "http://localhost:8000/"
-        : "https://extensions.turbowarp.org/";
+        : "https://extension.wwh.dpdns.org/";
   }
 
   getType() {
@@ -581,7 +582,8 @@ class SitemapFile extends BuildFile {
         if (a.length > b.length) return 1;
         return a - b;
       })
-      .map((path) => `https://extensions.turbowarp.org${path}`)
+      // ★ 已改为你的域名
+      .map((path) => `https://extension.wwh.dpdns.org${path}`)
       .map((absoluteURL) => `<url><loc>${absoluteURL}</loc></url>`)
       .join("\n");
 
