@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e1e2a"/>
+      <stop offset="1" stop-color="#2b2b3d"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5aa0ff"/>
+      <stop offset="1" stop-color="#3c82d9"/>
+    </linearGradient>
+    <linearGradient id="pinkGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff7a92"/>
+      <stop offset="1" stop-color="#e64a6b"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6fe39a"/>
+      <stop offset="1" stop-color="#41b46d"/>
+    </linearGradient>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="url(#bgGrad)"/>
+
+  <!-- 装饰几何 -->
+  <circle cx="70" cy="60" r="55" fill="#4c97ff" opacity="0.08"/>
+  <circle cx="740" cy="350" r="85" fill="#ff6680" opacity="0.08"/>
+  <rect x="20" y="300" width="110" height="110" rx="22" fill="#5fd68a" opacity="0.06"/>
+  <circle cx="700" cy="70" r="30" fill="#ffffff" opacity="0.05"/>
+
+  <!-- 主面板 -->
+  <rect x="200" y="50" width="400" height="300" rx="20" fill="#2b2b3d" stroke="#3d3d52" stroke-width="2" filter="url(#softShadow)"/>
+
+  <!-- 面板头部 -->
+  <path d="M 200 70 Q 200 50 220 50 L 580 50 Q 600 50 600 70 L 600 100 L 200 100 Z" fill="#4c97ff"/>
+
+  <!-- 头部抓取点阵 -->
+  <g fill="#ffffff" opacity="0.9">
+    <circle cx="224" cy="74" r="2.5"/>
+    <circle cx="236" cy="74" r="2.5"/>
+    <circle cx="248" cy="74" r="2.5"/>
+    <circle cx="224" cy="86" r="2.5"/>
+    <circle cx="236" cy="86" r="2.5"/>
+    <circle cx="248" cy="86" r="2.5"/>
+  </g>
+
+  <!-- 关闭按钮 -->
+  <circle cx="574" cy="75" r="9" fill="#ffffff" opacity="0.92"/>
+  <path d="M 570 71 L 578 79 M 578 71 L 570 79" stroke="#4c97ff" stroke-width="2.2" stroke-linecap="round"/>
+
+  <!-- 工具栏 -->
+  <rect x="200" y="100" width="400" height="42" fill="#242430"/>
+  <rect x="216" y="112" width="72" height="18" rx="9" fill="#4c97ff" opacity="0.9"/>
+  <circle cx="229" cy="121" r="4.5" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <path d="M 229 115.5 L 229 117.5 M 229 124.5 L 229 126.5 M 223.5 121 L 225.5 121 M 232.5 121 L 234.5 121" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
+  <rect x="298" y="117" width="90" height="8" rx="4" fill="#ffffff" opacity="0.35"/>
+
+  <!-- 卡片 1（蓝色，底部） -->
+  <rect x="220" y="250" width="360" height="46" rx="12" fill="url(#blueGrad)"/>
+  <circle cx="246" cy="273" r="9" fill="#ffffff" opacity="0.95"/>
+  <rect x="266" y="267" width="120" height="12" rx="6" fill="#ffffff" opacity="0.7"/>
+  <g fill="#ffffff" opacity="0.8">
+    <circle cx="556" cy="266" r="2"/>
+    <circle cx="556" cy="273" r="2"/>
+    <circle cx="556" cy="280" r="2"/>
+  </g>
+
+  <!-- 卡片 2（绿色，中间） -->
+  <rect x="220" y="200" width="360" height="46" rx="12" fill="url(#greenGrad)"/>
+  <circle cx="246" cy="223" r="9" fill="#ffffff" opacity="0.95"/>
+  <rect x="266" y="217" width="100" height="12" rx="6" fill="#ffffff" opacity="0.7"/>
+  <g fill="#ffffff" opacity="0.8">
+    <circle cx="556" cy="216" r="2"/>
+    <circle cx="556" cy="223" r="2"/>
+    <circle cx="556" cy="230" r="2"/>
+  </g>
+
+  <!-- 卡片 3（粉色，正在拖拽 → 位置略微偏移 + 阴影） -->
+  <g filter="url(#cardShadow)">
+    <rect x="244" y="148" width="360" height="46" rx="12" fill="url(#pinkGrad)" opacity="0.9"/>
+  </g>
+  <circle cx="270" cy="171" r="9" fill="#ffffff" opacity="0.95"/>
+  <rect x="290" y="165" width="110" height="12" rx="6" fill="#ffffff" opacity="0.7"/>
+  <g fill="#ffffff" opacity="0.8">
+    <circle cx="580" cy="164" r="2"/>
+    <circle cx="580" cy="171" r="2"/>
+    <circle cx="580" cy="178" r="2"/>
+  </g>
+
+  <!-- 拖拽指示线 -->
+  <path d="M 604 171 L 660 171" stroke="#ffffff" stroke-width="2" fill="none" stroke-dasharray="5 5" opacity="0.5"/>
+  <path d="M 654 164 L 664 171 L 654 178" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+
+  <!-- 底部小圆点（装饰） -->
+  <circle cx="400" cy="372" r="4" fill="#4c97ff" opacity="0.6"/>
+  <circle cx="416" cy="372" r="4" fill="#5fd68a" opacity="0.6"/>
+  <circle cx="432" cy="372" r="4" fill="#ff6680" opacity="0.6"/>
+</svg>
