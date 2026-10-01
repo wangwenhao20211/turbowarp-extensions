@@ -515,7 +515,7 @@
               <img loading="lazy" src="<%= image %>" class="extension-image">
 
               <div class="extension-buttons">
-                <a class="open" href="<%= getFullExtensionURL(extensionSlug) %>" target="_blank" rel="noopener">打开文件</a>
+                <a class="open" href="view.html?file=<%= encodeURIComponent(extensionSlug + '.js') %>" target="_blank" rel="noopener">查看源码</a>
                 <button class="copy-text" data-url="<%= getFullExtensionURL(extensionSlug) %>">复制文本</button>
                 <a class="download" href="<%= getFullExtensionURL(extensionSlug) %>" download="<%= extensionSlug %>.js">下载文件</a>
 
