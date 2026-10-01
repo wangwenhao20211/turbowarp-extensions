@@ -1,5 +1,6 @@
 [
   "svg-skin-translate",
   "a-star-pathfinding",
-  "face-capture"
+  "face-capture",
+  "layer-manager"
 ]
