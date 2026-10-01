@@ -370,7 +370,7 @@ class HomepageFile extends BuildFile {
     this.host =
       mode === "development"
         ? "http://localhost:8000/"
-        : "https://extension.wwh.dpdns.org/";
+        : "https://extensions.wwh.dpdns.org/";
   }
 
   getType() {
@@ -583,7 +583,7 @@ class SitemapFile extends BuildFile {
         return a - b;
       })
       // ★ 已改为你的域名
-      .map((path) => `https://extension.wwh.dpdns.org${path}`)
+      .map((path) => `https://extensions.wwh.dpdns.org${path}`)
       .map((absoluteURL) => `<url><loc>${absoluteURL}</loc></url>`)
       .join("\n");
 
