@@ -1,7 +1,7 @@
 // Name: SVG 翻译器
 // ID: svgTranslator
-// Description: 自动替换 SVG 造型中 {{标记}} 的文本，支持多行换行，可随时取消翻译
-// Version: v3 (fixes: cancelAll destroys skins, unit detection, cross-language skin eviction)
+// Description: 自动替换 SVG 造型中 {{标记}} 的文本，支持多行换行和运行时多语言切换
+// By: wangwenhao20211 <https://github.com/wangwenhao20211>
 // License: MIT
 
 (function (Scratch) {
