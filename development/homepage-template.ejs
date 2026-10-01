@@ -2,7 +2,6 @@
 <html lang="zh-CN">
   <head>
     <meta charset="utf8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>我的 TurboWarp 扩展</title>
     <meta name="theme-color" content="#ff4c4c">
     <meta name="description" content="个人维护的 TurboWarp 扩展集合。">
@@ -192,9 +191,47 @@
         background-color: #3ebb48;
         color: white;
       }
+      .extension-buttons .download {
+        background-color: #7c4dff;
+        color: white;
+      }
+      .extension-buttons .copy-text {
+        background-color: #4c97ff;
+        color: white;
+      }
       .extension-buttons :disabled {
         opacity: 0.5;
       }
+
+      /* 复制反馈：按钮变色 */
+      .copy-text.success { background-color: #2ecc71 !important; }
+      .copy-text.error { background-color: #e74c3c !important; }
+
+      /* 底部浮动提示 */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: #333;
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-size: 14px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .2s, transform .2s;
+        z-index: 9999;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
+        max-width: calc(100vw - 48px);
+        text-align: center;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      .toast.success { background: #2ecc71; }
+      .toast.error { background: #e74c3c; }
 
       .sample-list {
         display: none;
@@ -297,6 +334,8 @@
   </head>
 
   <body>
+    <div id="toast" class="toast"></div>
+
     <div class="section header">
       <h1>
         <svg aria-hidden="true" viewBox="0 0 1024 1024">
@@ -308,20 +347,13 @@
       </h1>
 
       <p>这是一个个人维护的 TurboWarp 扩展集合，包含一些不受扩展沙盒限制的扩展。</p>
-      <p>这些扩展也可以在 TurboWarp 的「添加扩展」菜单中找到（需要桌面版或打包后使用）。</p>
+      <p>这些扩展可以在 TurboWarp 桌面版（开启「运行未沙盒化扩展」）或通过 Packager 打包后的项目中使用。</p>
 
       <div class="infobox infobox-warning">
         <div class="infobox-title">这些扩展与 Scratch 不兼容。</div>
         使用这些扩展的项目无法在 Scratch 中打开，也无法上传到 Scratch 官网。
         但可以在 <a href="https://packager.turbowarp.org/">TurboWarp Packager</a> 中使用。
       </div>
-
-      <div class="infobox">
-        <div class="infobox-title">部分扩展可能无法在 TurboWarp 桌面版中正常工作。</div>
-        为了确保扩展在离线环境下可用，每个版本的 <a href="https://desktop.turbowarp.org/">TurboWarp 桌面版</a> 都内置了一份发布时的扩展副本，因此部分扩展可能已过时或缺失。
-        建议更新到最新版本以获得最佳效果。
-      </div>
-    </div>
 
     <% if (mode === "development") { %>
       <div class="section">
@@ -330,7 +362,7 @@
           <p>
             最近修改的扩展：
             <% for (const extensionSlug of mostRecentExtensions) { %>
-              <a href="<%= getRunExtensionURL(extensionSlug) %>"><%= extensionSlug %>.js</a>
+              <a href="<%= getFullExtensionURL(extensionSlug) %>"><%= extensionSlug %>.js</a>
             <% } %>
           </p>
         </div>
@@ -338,31 +370,73 @@
     <% } %>
 
     <script>
+      /* ---------------- 浮动提示 ---------------- */
+      var toastTimer = null;
+      function showToast(message, type) {
+        var toast = document.getElementById('toast');
+        if (!toast) return;
+        toast.textContent = message;
+        toast.className = 'toast show' + (type ? ' ' + type : '');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toast.className = 'toast' + (type ? ' ' + type : '');
+        }, 2000);
+      }
+
       document.addEventListener('click', function (e) {
-        var toCopy = e.target.getAttribute('data-copy');
-        if (toCopy) {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(toCopy);
-          } else {
-            var input = document.createElement('input');
-            input.value = toCopy;
-            input.style.top = '0';
-            input.style.left = '0';
-            input.style.position = 'fixed';
-            document.body.appendChild(input);
-            input.focus();
-            input.select();
-            try {
-              document.execCommand('copy');
-            } catch (e) {
-              console.error(e);
-            }
-            document.body.removeChild(input);
-            e.target.focus();
-          }
+        // ---- 复制扩展文本 ----
+        if (e.target.classList && e.target.classList.contains('copy-text')) {
+          var url = e.target.getAttribute('data-url');
+          var btn = e.target;
+          var original = btn.textContent;
+          var originalClass = btn.className;
+
+          btn.textContent = '加载中...';
+          btn.disabled = true;
+
+          var resetBtn = function () {
+            btn.textContent = original;
+            btn.className = originalClass;
+            btn.disabled = false;
+          };
+
+          fetch(url)
+            .then(function (r) {
+              if (!r.ok) throw new Error('HTTP ' + r.status);
+              return r.text();
+            })
+            .then(function (text) {
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                return navigator.clipboard.writeText(text);
+              } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); } catch (err) { console.error(err); }
+                document.body.removeChild(ta);
+              }
+            })
+            .then(function () {
+              btn.textContent = '✓ 已复制';
+              btn.className = 'copy-text success';
+              showToast('扩展文本已复制到剪贴板', 'success');
+              setTimeout(resetBtn, 1500);
+            })
+            .catch(function (err) {
+              console.error(err);
+              btn.textContent = '✗ 失败';
+              btn.className = 'copy-text error';
+              showToast('复制失败：' + err.message, 'error');
+              setTimeout(resetBtn, 2000);
+            });
+          return;
         }
 
-        if (e.target.className.includes('sample-list-button')) {
+        // ---- 示例项目列表切换 ----
+        if (e.target.className && e.target.className.includes('sample-list-button')) {
           var extension = e.target.closest('.extension');
           extension.dataset.samplesOpen = extension.dataset.samplesOpen !== 'true';
         }
@@ -458,8 +532,9 @@
               <img loading="lazy" src="<%= image %>" class="extension-image">
 
               <div class="extension-buttons">
-                <button class="copy" data-copy="<%= getFullExtensionURL(extensionSlug) %>">复制链接</button>
-                <a class="open" href="<%= getRunExtensionURL(extensionSlug) %>">打开扩展</a>
+                <a class="open" href="<%= getFullExtensionURL(extensionSlug) %>" target="_blank" rel="noopener">打开文件</a>
+                <button class="copy-text" data-url="<%= getFullExtensionURL(extensionSlug) %>">复制文本</button>
+                <a class="download" href="<%= getFullExtensionURL(extensionSlug) %>" download="<%= extensionSlug %>.js">下载文件</a>
 
                 <% if (metadata.hasDocumentation) { %>
                   <a class="docs" href="<%= getDocumentationURL(extensionSlug) %>">文档</a>
@@ -503,8 +578,6 @@
     <footer class="section">
       <p>本站是个人维护的 TurboWarp 扩展站点，与 Scratch、Scratch Team、Scratch Foundation 均无关联。</p>
       <div class="links">
-        <a href="https://github.com/wangwenhao20211/turbowarp-extensions/tree/master/images#readme">图片来源</a>
-        -
         <a href="https://github.com/wangwenhao20211/turbowarp-extensions">GitHub</a>
         -
         <a href="https://docs.turbowarp.org/development/extensions/introduction">开发者文档</a>
