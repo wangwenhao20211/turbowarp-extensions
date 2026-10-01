@@ -1,7 +1,9 @@
-// A* Pathfinding | id: astarpath
-// @description 高性能 A* 网格寻路、视线检测与随机坐标生成
-// @author wangwenhao20211
-// @license MIT
+// Name: A* 寻路
+// ID: astarpath
+// By: wangwenhao20211
+// License: MIT
+// Description: 高性能 A* 网格寻路、视线检测与随机坐标生成
+// Version: 2.1.0
 
 class MinHeap {
     constructor() { this.items = []; }
