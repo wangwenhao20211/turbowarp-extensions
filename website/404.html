@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>404 - 页面不存在</title>
+    <meta name="theme-color" content="#ff4c4c">
+    <style>
+      :root {
+        font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+        color-scheme: light dark;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color: #eee;
+          background: #111;
+        }
+        a {
+          color: #56b2ff;
+        }
+        a:visited {
+          color: #f192ff;
+        }
+        a:active {
+          color: red;
+        }
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+      }
+
+      nav {
+        background: #ff4c4c;
+        color: white;
+        font-weight: bold;
+      }
+      nav > div {
+        display: flex;
+        max-width: 928px;
+        margin: 0 auto;
+        padding: 0 8px;
+        justify-content: space-between;
+        align-items: center;
+      }
+      nav a {
+        display: inline-flex;
+        gap: 0.5rem;
+        padding: 0.5rem 0.25rem;
+        align-items: center;
+        text-decoration: none;
+        color: inherit !important;
+      }
+      nav a:hover {
+        text-decoration: underline;
+      }
+      @media (prefers-color-scheme: dark) {
+        nav {
+          background-color: #333;
+        }
+      }
+
+      .section {
+        max-width: 928px;
+        margin: 24px auto;
+        padding: 0 8px;
+      }
+
+      .error-card {
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        padding: 48px 24px;
+        text-align: center;
+      }
+      @media (prefers-color-scheme: dark) {
+        .error-card {
+          border-color: #333;
+        }
+      }
+
+      .code {
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        font-size: 5rem;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        color: #ff4c4c;
+        margin: 0 0 12px;
+        user-select: none;
+      }
+      @media (max-width: 480px) {
+        .code { font-size: 3.5rem; }
+      }
+
+      .emoji {
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 16px;
+        user-select: none;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin: 0 0 12px;
+      }
+
+      p {
+        margin: 0 0 28px;
+        font-size: 0.95rem;
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 22px;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        font-family: inherit;
+        border: none;
+        cursor: pointer;
+        color: white;
+        transition: filter 0.15s;
+      }
+      .btn:hover {
+        filter: brightness(1.08);
+        text-decoration: none;
+      }
+      .btn:active {
+        filter: brightness(0.85);
+      }
+
+      .btn-primary {
+        background: #ff4c4c;
+      }
+
+      .btn-secondary {
+        background: #4c97ff;
+      }
+
+      footer {
+        opacity: 0.8;
+        width: 100%;
+        text-align: center;
+        margin: 32px 0 16px;
+        font-size: 0.875em;
+      }
+      footer p {
+        margin: 0 0 8px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <nav role="navigation">
+      <div>
+        <a href="/">我的 TurboWarp 扩展</a>
+      </div>
+    </nav>
+
+    <div class="section">
+      <div class="error-card">
+        <div class="code">404</div>
+        <h1>页面不存在</h1>
+        <p>你访问的页面可能被删除、重命名，或者从未存在过。</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="/">返回首页</a>
+          <a class="btn btn-secondary" href="https://github.com/wangwenhao20211/turbowarp-extensions" target="_blank" rel="noopener">查看 GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="section">
+      <p>本站是个人维护的 TurboWarp 扩展站点，与 Scratch、Scratch Team、Scratch Foundation 均无关联。</p>
+    </footer>
+  </body>
+</html>
