@@ -1,7 +1,7 @@
 // Name: 面部捕捉
 // ID: faceCapture
 // Description: 用摄像头实时捕捉面部动作，输出头部姿态、眼睛开合、嘴型等数据。
-// By: 你的名字 <https://github.com/你的用户名>
+// By: wangwenhao20211 <https://github.com/wangwenhao20211>
 // License: CC-BY-NC-4.0
 
 (function (Scratch) {
