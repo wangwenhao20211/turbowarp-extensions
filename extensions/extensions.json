@@ -1,0 +1,13 @@
+{
+  "svg-skin-translate": {
+    "file": "svg-skin-translate.js",
+    "name": "SVG 翻译器",
+    "description": "替换 SVG 造型中 {{标记}} 的文本，实现运行时多语言切换。",
+    "credits": [
+      {
+        "name": "wangwenhao20211",
+        "link": "https://github.com/wangwenhao20211"
+      }
+    ]
+  }
+}
