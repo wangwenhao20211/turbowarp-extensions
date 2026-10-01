@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>查看源码</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      color-scheme: light dark;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { color: #eee; background: #111; }
+      a { color: #56b2ff; }
+    }
+    body {
+      margin: 0 auto;
+      padding: 16px;
+      max-width: 1100px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 16px;
+    }
+    @media (prefers-color-scheme: dark) {
+      header { border-bottom-color: #333; }
+    }
+    h1 {
+      font-size: 1.1em;
+      margin: 0;
+      word-break: break-all;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+    }
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .actions > * {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      font: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+      background: #4c97ff;
+    }
+    .actions a.back { background: #666; }
+    .actions a.download { background: #7c4dff; }
+    pre {
+      background: #f5f5f5;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 0;
+    }
+    @media (prefers-color-scheme: dark) {
+      pre { background: #1a1a1a; }
+    }
+    code {
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      white-space: pre;
+    }
+    .error {
+      color: #e74c3c;
+      padding: 16px;
+      background: rgba(231, 76, 60, 0.1);
+      border-left: 4px solid #e74c3c;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="filename">加载中...</h1>
+    <div class="actions">
+      <button id="copy-btn">复制</button>
+      <a id="download-btn" class="download" href="#">下载</a>
+      <a class="back" href="index.html">返回</a>
+    </div>
+  </header>
+
+  <pre id="content"><code>正在加载...</code></pre>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var file = params.get('file');
+
+      var filenameEl = document.getElementById('filename');
+      var contentEl = document.querySelector('#content code');
+      var copyBtn = document.getElementById('copy-btn');
+      var downloadBtn = document.getElementById('download-btn');
+
+      if (!file) {
+        contentEl.parentElement.innerHTML = '<div class="error">缺少 file 参数。</div>';
+        return;
+      }
+
+      if (!/^[A-Za-z0-9_\-\/.]+\.js$/.test(file) || file.includes('..')) {
+        filenameEl.textContent = '无效的文件名';
+        contentEl.parentElement.innerHTML = '<div class="error">无效的文件路径。</div>';
+        return;
+      }
+
+      filenameEl.textContent = file;
+      downloadBtn.href = file;
+      downloadBtn.setAttribute('download', file.split('/').pop());
+
+      fetch(file)
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.text();
+        })
+        .then(function (text) {
+          contentEl.textContent = text;
+        })
+        .catch(function (err) {
+          contentEl.parentElement.innerHTML =
+            '<div class="error">加载失败：' + err.message + '</div>';
+        });
+
+      copyBtn.addEventListener('click', function () {
+        var text = contentEl.textContent;
+        var done = function () {
+          copyBtn.textContent = '已复制';
+          setTimeout(function () { copyBtn.textContent = '复制'; }, 1200);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(function (e) {
+            console.error(e);
+          });
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (e) { console.error(e); }
+          document.body.removeChild(ta);
+          done();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
