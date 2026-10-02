@@ -13,7 +13,7 @@
 
     const runtime = Scratch.vm.runtime;
     const Cast = Scratch.Cast;
-    const EXTENSION_ID = 'moreusefulblocks';
+    const EXTENSION_ID = 'more-useful-blocks';
     const ICON = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI4IiBmaWxsPSIjQzc3REZGIi8+PC9zdmc+';
 
     class MoreUsefulBlocks {
