@@ -1,5 +1,5 @@
 // Name: 更多实用积木
-// ID: moreusefulblocks
+// ID: more-useful-blocks
 // Description: 提供更多实用的积木，包括克隆，移动等
 // By: yizhiMC
 // License: MIT
