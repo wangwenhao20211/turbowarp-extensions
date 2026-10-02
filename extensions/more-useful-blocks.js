@@ -1,5 +1,5 @@
 // Name: 更多实用积木
-// ID: more-useful-blocks
+// ID: moreUsefulBlocks
 // Description: 提供更多实用的积木，包括克隆，移动等
 // By: yizhiMC
 // License: MIT
@@ -13,7 +13,7 @@
 
     const runtime = Scratch.vm.runtime;
     const Cast = Scratch.Cast;
-    const EXTENSION_ID = 'more-useful-blocks';
+    const EXTENSION_ID = 'moreUsefulBlocks';
     const ICON = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI4IiBmaWxsPSIjQzc3REZGIi8+PC9zdmc+';
 
     class MoreUsefulBlocks {
@@ -28,7 +28,7 @@
             this.updateSpriteList();
 
             return {
-                id: 'more-useful-blocks',
+                id: 'moreUsefulBlocks',
                 name: '更多实用积木',
                 color1: '#C77DFF',
                 color2: '#B056E0',

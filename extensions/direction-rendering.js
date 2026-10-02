@@ -1,5 +1,5 @@
 // Name:方向渲染
-// ID: direction-rendering
+// ID: directionRendering
 // Description: 提供第二个方向和xy的渲染，让角色在左右和不可翻转的情况下也可以旋转
 // By: yizhiMC
 // License: MIT
@@ -9,7 +9,7 @@
 
     var rotationData = {};
     var secondXY = {};
-    var EXT_ID = 'direction-rendering';
+    var EXT_ID = 'directionRendering';
 
     function applyAnotherRotation(target) {
         if (!target || !target.renderer || target.drawableID === null) return;
@@ -99,7 +99,7 @@
 
     AnotherRotation.prototype.getInfo = function() {
         return {
-            id: 'direction-rendering',
+            id: 'directionRendering',
             name: '\u65b9\u5411\u6e32\u67d3',
             color1: '#FF6B35',
             color2: '#E85A2C',
