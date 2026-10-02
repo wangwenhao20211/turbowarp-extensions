@@ -3,5 +3,6 @@
   "a-star-pathfinding",
   "face-capture",
   "layer-manager",
-  "more-useful-blocks"
+  "more-useful-blocks",
+  "direction-rendering"
 ]
