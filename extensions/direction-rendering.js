@@ -99,7 +99,7 @@
 
     AnotherRotation.prototype.getInfo = function() {
         return {
-            id: 'directionRendering',
+            id: EXT_ID,
             name: '\u65b9\u5411\u6e32\u67d3',
             color1: '#FF6B35',
             color2: '#E85A2C',

@@ -956,7 +956,7 @@
   class layerManager2Extension {
     getInfo() {
       return {
-        id: layerManager2,
+        id: extensionId,
         name: '图层管理器2',
         color1: '#4c97ff',
         color2: '#3373cc',
