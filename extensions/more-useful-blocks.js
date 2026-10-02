@@ -28,7 +28,7 @@
             this.updateSpriteList();
 
             return {
-                id: more-useful-blocks,
+                id: 'more-useful-blocks',
                 name: '更多实用积木',
                 color1: '#C77DFF',
                 color2: '#B056E0',
