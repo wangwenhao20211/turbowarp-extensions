@@ -9,7 +9,7 @@
 
     var rotationData = {};
     var secondXY = {};
-    var EXT_ID = 'anotherrotation';
+    var EXT_ID = 'direction-rendering';
 
     function applyAnotherRotation(target) {
         if (!target || !target.renderer || target.drawableID === null) return;
